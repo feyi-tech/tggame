@@ -45,6 +45,8 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         const tg = window.Telegram.WebApp;
+        //Set the webview drawer to fullscreen
+        tg.expand();
 
         // Get the initData string
         const initData = tg.initData;
