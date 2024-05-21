@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const pgEl = document.getElementById('progress');
 
     //const images = ['/images/minner-2.png', '/images/minner-3.png', '/images/minner-4.png', '/images/minner.png'];
-    const images = ['/images/minner1.png', '/images/minner2.png'];
+    const images = ['/images/minner1.png', '/images/minner2.png', '/images/minner1.png'];
     let currentImageIndex = 0;
     let tapping = false;
     const allowMultiTap = true;
@@ -19,9 +19,33 @@ document.addEventListener('DOMContentLoaded', () => {
     pgEl.style.width = `${100}%`
 
     // Preload images
+    var totalLoaded = 0
     const preloadedImages = [];
+
+    const checkLoadFinish = () => {
+        totalLoaded++
+        if(totalLoaded == images.length) {
+            document.getElementById('loading-screen').style.display = "none"
+            document.getElementById('app').style.display = "flex"
+        }
+    }
+    const checkLoadError = (e, src, i) => {
+        const img = new Image();
+        img.onload = checkLoadFinish
+        img.onerror = (e, src) => {
+            checkLoadError(e, src, i)
+        }
+        img.src = src;
+        preloadedImages[i] = img;
+    }
+
+    var i = 0
     images.forEach((src) => {
         const img = new Image();
+        img.onload = checkLoadFinish
+        img.onerror = (e, src, i) => {
+            checkLoadError(e, src, i)
+        }
         img.src = src;
         preloadedImages.push(img);
     });
