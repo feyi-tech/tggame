@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TapSwap UI</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui" />
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <link rel="stylesheet" href="css/reset.css" type="text/css">
+    <link rel="stylesheet" href="css/main.css" type="text/css">
+    <link rel="stylesheet" href="css/tap.css" type="text/css">
+    <link rel="stylesheet" href="css/game.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="https://telegram.org/js/games.js"></script>
+    <script type="text/javascript" src="/js/nav.js"></script>
+    <script type="text/javascript" src="/js/main.js"></script>
+    <script type="text/javascript" src="/js/game.js"></script>
+</head>
+<body ondragstart="return false;" ondrop="return false;">
+    <div id="app">
+        <div id="content">
+            <div id="ref" class="tab-content">Referral Content</div>
+            <div id="task" class="tab-content">Tasks Content</div>
+
+            <div id="tap" class="tab-content active">
+                <div class="header">
+                    <div class="icon-text balance">
+                        <img src="/images/coin.png" class="coin-icon" />
+                        <div id="earned-coins">0</div>
+                    </div>
+                    <div class="icon-text tier">
+                        <img src="/images/coin.png" class="badge-sm" />
+                        <div class="badge-sm font-dark">Silver <i class="fa fa-chevron-right font-dark" style="font-size: 12px;"></i></div>
+                    </div>
+                </div>
+
+                <img id="mine-ground" src="/images/minner.png" class="tap-image-button" />
+
+                <div class="d-flex flex-column justify-content-start align-items-center w-100">
+                    <div style="margin-bottom: 5px;">
+                        <img src="/images/coin.png" class="badge-sm" style="display: inline;" />
+                        <span>
+                            <span style="font-weight: bold;">500</span>
+                            <span class="font-dark">/</span>
+                            <span style="font-weight: bold;" class="font-dark">2500</span>
+                        </span>
+                    </div>
+                    <div class="progress-bar glass">
+                        <div class="progress-bar-line"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="boost" class="tab-content">Boost Content</div>
+            <div id="stats" class="tab-content">Stats Content</div>
+        </div>
+        <div id="footer">
+            <div class="grid grid-cols-5 px-1 py-1">
+                <div class="col-span-1" onclick="showTab('ref')">
+                    <div class="game-button">
+                        <div class="game-button-icon">
+                            <img src="/images/dashboard.png" class="change-color">
+                        </div>
+                        <div class="game-button-text">Ref</div>
+                    </div>
+                </div>
+                <div class="col-span-1" onclick="showTab('task')">
+                    <div class="game-button">
+                        <div class="game-button-icon">
+                            <img src="/images/link.png" class="change-color">
+                        </div>
+                        <div class="game-button-text">Task</div>
+                    </div>
+                </div>
+                <div class="col-span-1" onclick="showTab('tap')">
+                    <div class="game-button">
+                        <div class="game-button-icon">
+                            <img src="/images/coin-small.png" class="">
+                        </div>
+                        <div class="game-button-text">Mine</div>
+                    </div>
+                </div>
+                <div class="col-span-1" onclick="showTab('boost')">
+                    <div class="game-button">
+                        <div class="game-button-icon">
+                            <img src="/images/nft.png" style="filter: hue-rotate(229deg) saturate(1.6);">
+                        </div>
+                        <div class="game-button-text">Boost</div>
+                    </div>
+                </div>
+                <div class="col-span-1" onclick="showTab('stats')">
+                    <div class="game-button">
+                        <div class="game-button-icon">
+                            <img src="/images/stack.png">
+                        </div>
+                        <div class="game-button-text">Stats</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

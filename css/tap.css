@@ -1,0 +1,32 @@
+
+#tap {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tap-image-button, .tier {
+    cursor: pointer;
+}
+
+.progress-bar {
+    width: 90%;
+    height: 12px;
+    border-radius: 10px;
+    padding: 3px;
+}
+
+.progress-bar-line {
+    height: 100%;
+    width: 68%; /* Adjust this width to represent the progress */
+    background: linear-gradient(90deg, rgba(229, 160, 43, 0.7), rgba(229, 160, 43, 1));
+    transition: width 0.3s;
+    border-radius: 10px;
+}
+
+.floating-text {
+    position: absolute;
+    color: #ff0;
+    font-weight: bold;
+    animation: floatUp 1s ease-in-out;
+}
