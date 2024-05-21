@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const total = 2500
     const fillSize = 4
+    const coinPerTap = 2
     totalEl.innerText = total
     remainderEl.innerText = total
     pgEl.style.width = `${100}%`
@@ -75,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Show +2 animation
         const floatingText = document.createElement('div');
         floatingText.classList.add('floating-text');
-        floatingText.innerText = '+2';
+        floatingText.innerText = `+${coinPerTap}`;
         document.body.appendChild(floatingText);
         floatingText.style.left = `${x}px`;
         floatingText.style.top = `${y}px`;
@@ -99,14 +100,16 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             floatingText.remove();
             let coins = parseInt(earnedCoins.innerText, 10);
-            coins += 2;
+            coins += coinPerTap;
             earnedCoins.innerText = coins;
 
             let remainder = parseInt(remainderEl.innerText, 10);
             remainder -= 1;
-            remainderEl.innerText = remainder;
+            if(remainder >= 0) {
+                remainderEl.innerText = remainder;
 
-            pgEl.style.width = `${Math.round((remainder * 100) / total)}%`
+                pgEl.style.width = `${Math.round((remainder * 100) / total)}%`
+            }
 
         }, 1000);
     }
@@ -119,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 remainderEl.innerText = remainder;
             }
             fill()
-        }, 10000)
+        }, 1000)
     }
 
     fill()

@@ -67,9 +67,7 @@
         });
 
         window.Game = {
-            tgData: getQueryParamsAsJson(),
-            tgData2: initData,
-            tgData3: initDataUnsafe,
+            tgData: initDataUnsafe,
             getTop: getTop,
             saveScore: saveScore,
             shareScore: function () {
