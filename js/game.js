@@ -4,11 +4,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const images = ['/images/minner-2.png', '/images/minner-3.png', '/images/minner-4.png', '/images/minner.png'];
     let currentImageIndex = 0;
     let tapping = false;
-    let allowMultiTap = true
-    let freq = 100
+    const allowMultiTap = true;
+    const freq = 100;
+
+    // Preload images
+    const preloadedImages = [];
+    images.forEach((src) => {
+        const img = new Image();
+        img.src = src;
+        preloadedImages.push(img);
+    });
 
     mineGround.addEventListener('click', (event) => {
-        if(!allowMultiTap && tapping) return
+        if (!allowMultiTap && tapping) return;
         tapping = true;
         animateMiner(event.clientX, event.clientY);
         setTimeout(() => {
@@ -19,8 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function animateMiner(x, y) {
         let imageIndex = 0;
         const interval = setInterval(() => {
-            mineGround.src = images[imageIndex];
-            imageIndex = (imageIndex + 1) % images.length;
+            mineGround.src = preloadedImages[imageIndex].src;
+            imageIndex = (imageIndex + 1) % preloadedImages.length;
             if (imageIndex === 0) {
                 clearInterval(interval);
             }
