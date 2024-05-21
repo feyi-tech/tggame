@@ -18,7 +18,7 @@
 
 .progress-bar-line {
     height: 100%;
-    width: 68%; /* Adjust this width to represent the progress */
+    /*width: 68%;  Adjust this width to represent the progress */
     background: linear-gradient(90deg, rgba(229, 160, 43, 0.7), rgba(229, 160, 43, 1));
     transition: width 0.3s;
     border-radius: 10px;

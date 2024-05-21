@@ -1,11 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
     const mineGround = document.getElementById('mine-ground');
     const earnedCoins = document.getElementById('earned-coins');
-    const images = ['/images/minner-2.png', '/images/minner-3.png', '/images/minner-4.png', '/images/minner.png'];
+    const totalEl = document.getElementById('total');
+    const remainderEl = document.getElementById('remainder');
+    const pgEl = document.getElementById('progress');
+
+    //const images = ['/images/minner-2.png', '/images/minner-3.png', '/images/minner-4.png', '/images/minner.png'];
+    const images = ['/images/minner1.png', '/images/minner2.png'];
     let currentImageIndex = 0;
     let tapping = false;
     const allowMultiTap = true;
     const freq = 100;
+
+    const total = 2500
+    const fillSize = 4
+    totalEl.innerText = total
+    remainderEl.innerText = total
+    pgEl.style.width = `${100}%`
 
     // Preload images
     const preloadedImages = [];
@@ -33,6 +44,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 clearInterval(interval);
             }
         }, freq);
+
+        let remainder = parseInt(remainderEl.innerText, 10);
+        if(remainder == 0) return
 
         // Show +2 animation
         const floatingText = document.createElement('div');
@@ -63,6 +77,26 @@ document.addEventListener('DOMContentLoaded', () => {
             let coins = parseInt(earnedCoins.innerText, 10);
             coins += 2;
             earnedCoins.innerText = coins;
+
+            let remainder = parseInt(remainderEl.innerText, 10);
+            remainder -= 1;
+            remainderEl.innerText = remainder;
+
+            pgEl.style.width = `${Math.round((remainder * 100) / total)}%`
+
         }, 1000);
     }
+
+    const fill = () => {
+        setTimeout(() => {
+            let remainder = parseInt(remainderEl.innerText, 10);
+            if(remainder + fillSize <= total) {
+                remainder += fillSize;
+                remainderEl.innerText = remainder;
+            }
+            fill()
+        }, 10000)
+    }
+
+    fill()
 });
