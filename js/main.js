@@ -41,16 +41,41 @@
 
         return paramsObject;
     }
+    
 
-  
-    window.Game = {
-        tgData: getQueryParamsAsJson(),
-        getTop: getTop,
-        saveScore: saveScore,
-        shareScore: function () {
-            if (!window.TelegramGameProxy) {
-                return console.log("Can't find TelegramGameProxy")
-            }
-            window.TelegramGameProxy.shareScore()
+    document.addEventListener('DOMContentLoaded', () => {
+        const tg = window.Telegram.WebApp;
+
+        // Get the initData string
+        const initData = tg.initData;
+
+        // Decode and parse the initData string
+        const initDataUnsafe = tg.initDataUnsafe;
+    
+        function handleMainButtonClick() {
+            console.log('Main button clicked!');
+            // Handle main button click
         }
-    }
+    
+        tg.onEvent('mainButtonClicked', handleMainButtonClick);
+    
+        // Cleanup event listeners when necessary
+        window.addEventListener('unload', () => {
+            tg.offEvent('mainButtonClicked', handleMainButtonClick);
+        });
+
+        window.Game = {
+            tgData: getQueryParamsAsJson(),
+            tgData2: initData,
+            tgData3: initDataUnsafe,
+            getTop: getTop,
+            saveScore: saveScore,
+            shareScore: function () {
+                if (!window.TelegramGameProxy) {
+                    return console.log("Can't find TelegramGameProxy")
+                }
+                window.TelegramGameProxy.shareScore()
+            }
+        }
+    });
+    
