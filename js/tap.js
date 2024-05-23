@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const pgEl = document.getElementById('progress');
 
     //const images = ['/images/minner-2.png', '/images/minner-3.png', '/images/minner-4.png', '/images/minner.png'];
-    const images = ['/images/minner1.png', '/images/minner2.png', '/images/minner1.png'];
+    const images = ['/images/minner0.png', '/images/minner1.png', '/images/minner2.png', '/images/minner3.png', '/images/minner0.png'];
     let currentImageIndex = 0;
     let tapping = false;
     const allowMultiTap = true;
@@ -76,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Show +2 animation
         const floatingText = document.createElement('div');
         floatingText.classList.add('floating-text');
+        floatingText.classList.add('no-highlight');
         floatingText.innerText = `+${coinPerTap}`;
         document.body.appendChild(floatingText);
         floatingText.style.left = `${x}px`;
@@ -120,10 +121,36 @@ document.addEventListener('DOMContentLoaded', () => {
             if(remainder + fillSize <= total) {
                 remainder += fillSize;
                 remainderEl.innerText = remainder;
+
+            } else {
+                remainderEl.innerText = total
             }
+            pgEl.style.width = `${Math.round((parseInt(remainderEl.innerText, 10) * 100) / total)}%`
             fill()
-        }, 1000)
+        }, 2000)
     }
 
     fill()
+
+    const sendScore = () => {
+        const userScore = parseInt(earnedCoins.innerText, 10);
+        const initData = tg.initData;
+        tg.sendData(JSON.stringify({ action: 'set_score', score: userScore, initData }));
+    };
+
+    // Listen to Telegram WebApp events
+    tg.onEvent('web_app_close', sendScore);
+    window.addEventListener('beforeunload', sendScore);
+
+    // Fetch latest score when the game loads
+    tg.ready(() => {
+        const initData = tg.initData;
+        tg.sendData(JSON.stringify({ action: 'get_score', initData }));
+    });
+
+    window.addEventListener('message', (event) => {
+        if (event.data && event.data.action === 'set_score') {
+            earnedCoins.innerText = event.data.score;
+        }
+    });
 });

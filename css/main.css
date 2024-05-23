@@ -11,6 +11,14 @@ body {
     background-color: #1a1a1a;
     color: #fff;
 }
+/* Prevent text selection and highlighting */
+.no-highlight {
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* Internet Explorer/Edge */
+    user-select: none;         /* Non-prefixed version, currently supported by Chrome and Opera */
+    outline: none;             /* Prevent outline */
+}
 img { border-style: none }
 img, svg {
     vertical-align: middle;
