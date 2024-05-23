@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const pgEl = document.getElementById('progress');
     
     const sendScore = () => {
+        const tg = window.Telegram.WebApp;
         const userScore = parseInt(earnedCoins.innerText, 10);
         const initData = tg.initData;
         tg.sendData(JSON.stringify({ action: 'set_score', score: userScore, initData }));
