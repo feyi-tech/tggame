@@ -1,9 +1,16 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     const mineGround = document.getElementById('mine-ground');
     const earnedCoins = document.getElementById('earned-coins');
     const totalEl = document.getElementById('total');
     const remainderEl = document.getElementById('remainder');
     const pgEl = document.getElementById('progress');
+    
+    const sendScore = () => {
+        const userScore = parseInt(earnedCoins.innerText, 10);
+        const initData = tg.initData;
+        tg.sendData(JSON.stringify({ action: 'set_score', score: userScore, initData }));
+    };
 
     //const images = ['/images/minner-2.png', '/images/minner-3.png', '/images/minner-4.png', '/images/minner.png'];
     const images = ['/images/minner0.png', '/images/minner1.png', '/images/minner2.png', '/images/minner3.png', '/images/minner0.png'];
@@ -103,6 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let coins = parseInt(earnedCoins.innerText, 10);
             coins += coinPerTap;
             earnedCoins.innerText = coins;
+            //sendScore()
 
             let remainder = parseInt(remainderEl.innerText, 10);
             remainder -= 1;
@@ -130,27 +138,33 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2000)
     }
 
+    const setTg = () => {
+        setTimeout(() => {
+            if(window?.Telegram?.WebApp) {
+                const tg = window.Telegram.WebApp;
+                tg.onEvent('web_app_close', sendScore);
+
+                // Fetch latest score when the game loads
+                tg.ready(() => {
+                    const initData = tg.initData;
+                    tg.sendData(JSON.stringify({ action: 'get_score', initData }));
+                });
+
+            } else {
+                setTg()
+            }
+        }, 200);
+    }
+
     fill()
 
-    const sendScore = () => {
-        const userScore = parseInt(earnedCoins.innerText, 10);
-        const initData = tg.initData;
-        tg.sendData(JSON.stringify({ action: 'set_score', score: userScore, initData }));
-    };
-
     // Listen to Telegram WebApp events
-    tg.onEvent('web_app_close', sendScore);
     window.addEventListener('beforeunload', sendScore);
-
-    // Fetch latest score when the game loads
-    tg.ready(() => {
-        const initData = tg.initData;
-        tg.sendData(JSON.stringify({ action: 'get_score', initData }));
-    });
 
     window.addEventListener('message', (event) => {
         if (event.data && event.data.action === 'set_score') {
             earnedCoins.innerText = event.data.score;
         }
     });
+    setTg()
 });
