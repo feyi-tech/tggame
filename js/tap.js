@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let coins = parseInt(earnedCoins.innerText, 10);
             coins += coinPerTap;
             earnedCoins.innerText = coins;
-            //sendScore()
+            sendScore()
 
             let remainder = parseInt(remainderEl.innerText, 10);
             remainder -= 1;
